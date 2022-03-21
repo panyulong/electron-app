@@ -48,13 +48,16 @@ async function createWindow() {
 
 	if (process.env.WEBPACK_DEV_SERVER_URL) {
 		// Load the url of the dev server if in development mode
-		await mainWindow.loadURL(process.env.WEBPACK_DEV_SERVER_URL as string);
+		// await mainWindow.loadURL(process.env.WEBPACK_DEV_SERVER_URL as string);
+		await mainWindow.loadURL(
+			(process.env.WEBPACK_DEV_SERVER_URL + process.env.VITE_APP_HOME) as string
+		);
 		if (!process.env.IS_TEST) mainWindow.webContents.openDevTools();
 	} else {
 		createProtocol("app");
 		// Load the index.html when not in development
 		// mainWindow.loadURL('app://./index.html')
-		mainWindow.loadURL(`file://${__dirname}/main.html`);
+		mainWindow.loadURL(`file://${__dirname}${process.env.VITE_APP_HOME}`);
 	}
 	mainWindow.removeMenu();
 	setTray();

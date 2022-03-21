@@ -1,6 +1,6 @@
 import { createApp } from "vue";
-import App from "./Remind.vue";
+import Remind from "./Remind.vue";
 import router from "../../router";
 import store from "../../store";
 
-createApp(App).use(store).use(router).mount("#app");
+createApp(Remind).use(store).use(router).mount("#app");
