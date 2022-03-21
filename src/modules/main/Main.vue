@@ -1,5 +1,10 @@
 <template>
-  <div>Main</div>
+  <div>
+    <h1>Main</h1>  
+    <div class="content">
+      <router-view />
+    </div>
+  </div>
 </template>
 
 <script>

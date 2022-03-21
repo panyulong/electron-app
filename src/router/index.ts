@@ -1,25 +1,66 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, RouteRecordRaw, createWebHistory } from "vue-router";
+const portal = () => import("@/views/portal/index.vue");
+const Main = () => import("@/modules/main/Main.vue");
+const home = () => import("@/views/home/index.vue");
+const about = () => import("@/views/about/index.vue");
 
-const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
-]
+const routes: RouteRecordRaw[] = [
+	{
+		path: "/",
+		redirect: "/home",
+		name: "首页",
+		component: portal,
+		children: [
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+      {
+				path: "main",
+				name: "Main",
+				component: Main,
+				meta: {
+          title: '主页',
+					bodyClassName: "body-portal",
+				},
+        children:[
+          {
+            path: "home",
+            name: "Home",
+            component: home,
+            meta: {
+              title: '首页',
+              bodyClassName: "body-portal",
+            },
+          },
+        ]
+			},
 
-export default router
+			{
+				path: "home",
+				name: "Home",
+				component: home,
+				meta: {
+          title: '首页',
+					bodyClassName: "body-portal",
+				},
+			},
+			{
+				path: "about",
+				name: "About",
+				component: about,
+				meta: {
+          title: '关于',
+					bodyClassName: "body-portal",
+				},
+			},
+		],
+	},
+	// {
+	// 	path: "/:pathMatch(.*)*",
+	// 	name: "找不到页面",
+	// 	component: noFound,
+	// },
+];
+
+export default createRouter({
+	history: createWebHistory(import.meta.env.VITE_APP_PATH),
+	routes,
+});

@@ -1,6 +1,16 @@
 import { createApp } from "vue";
 import Main from "./Main.vue";
+// import ElementPlus from "./plugins/elementPlus";
 import router from "../../router";
-import store from "../../store";
+// import { setupStore } from "@/store";
+// import "normalize.css";
 
-createApp(Main).use(store).use(router).mount("#app");
+const app = createApp(Main);
+
+// 挂载状态管理
+// setupStore(app);
+
+app
+.use(router)
+// .use(ElementPlus)
+.mount("#app");

@@ -36,7 +36,7 @@ async function createWindow() {
 		webPreferences: {
 			backgroundThrottling: false,
 			// Required for Spectron testing
-			enableRemoteModule: !!process.env.IS_TEST,
+			// enableRemoteModule: !!process.env.IS_TEST,
 
 			// Use pluginOptions.nodeIntegration, leave this alone
 			// See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
@@ -50,14 +50,14 @@ async function createWindow() {
 		// Load the url of the dev server if in development mode
 		// await mainWindow.loadURL(process.env.WEBPACK_DEV_SERVER_URL as string);
 		await mainWindow.loadURL(
-			(process.env.WEBPACK_DEV_SERVER_URL + process.env.VITE_APP_HOME) as string
+			(process.env.WEBPACK_DEV_SERVER_URL + '/main.html') as string
 		);
 		if (!process.env.IS_TEST) mainWindow.webContents.openDevTools();
 	} else {
 		createProtocol("app");
 		// Load the index.html when not in development
 		// mainWindow.loadURL('app://./index.html')
-		mainWindow.loadURL(`file://${__dirname}${process.env.VITE_APP_HOME}`);
+		mainWindow.loadURL(`file://${__dirname}/main.html`);
 	}
 	mainWindow.removeMenu();
 	setTray();
