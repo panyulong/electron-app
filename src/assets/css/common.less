@@ -1,0 +1,20 @@
+@headerH: 60px; // 头部高度
+@boxBgc: rgba(255, 255, 255, 0.98);
+@boxSd: 2px 2px 2px 0px rgba(0, 0, 0, 0.16);
+@boxSpace: 16px; // 距离边界边距
+@primary:#3B74E5;
+@sideBarWidth:220px; // 左侧图层sidebar宽度
+@boxHoverBgc:#e4e4e4;
+
+.bgImage(@url) {
+  background-image: ~"url('@/assets/img/@{url}')";
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+}
+
+.boxHover() {
+  background: #ECF5FF;
+  color: @primary;
+}
+

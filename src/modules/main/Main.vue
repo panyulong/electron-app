@@ -1,20 +1,36 @@
 <template>
   <div>
-    <h1>Main</h1>  
+    <h1>Main</h1>
+
+    <el-tabs :tab-position="tabPosition" style="height: 200px" class="demo-tabs">
+      <el-tab-pane label="User">User</el-tab-pane>
+      <el-tab-pane label="Config">Config</el-tab-pane>
+      <el-tab-pane label="Role">Role</el-tab-pane>
+      <el-tab-pane label="Task">Task</el-tab-pane>
+    </el-tabs>
     <div class="content">
       <router-view />
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts" setup name="Main">
+import { ref } from 'vue'
 
-export default {
-  name: 'Main',
-  components: {
-  }
-}
+const tabPosition = ref('left')
+
 </script>
 
-<style>
+<style lang="less" scoped>
+.demo-tabs > .el-tabs__content {
+  padding: 32px;
+  color: #6b778c;
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.el-tabs--right .el-tabs__content,
+.el-tabs--left .el-tabs__content {
+  height: 100%;
+}
 </style>

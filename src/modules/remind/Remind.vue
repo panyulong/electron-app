@@ -2,13 +2,8 @@
   <div>Remind</div>
 </template>
 
-<script>
+<script lang="ts" setup name="Remind">
 
-export default {
-  name: 'VueRemind',
-  components: {
-  }
-}
 </script>
 
 <style>
