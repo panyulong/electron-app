@@ -5,20 +5,37 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-	const { VITE_APP_PATH, VITE_PORT, VITE_PROXY } = loadEnv(mode, process.cwd());
+	const { VITE_APP_PATH, VITE_PORT, VITE_PROXY, VITE_APP_ELECTRON_BUILD } =
+		loadEnv(mode, process.cwd());
 	return {
-		base: process.env.ELECTRON == "true" ? "./" : VITE_APP_PATH,
-		root: "src/modules/main/",
+		base: VITE_APP_ELECTRON_BUILD == "true" ? "./" : VITE_APP_PATH,
+		root: mode === "production" ? "src/modules/main/" : "src/modules/main/",
 		transpileDependencies: true,
 		lintOnSave: false,
 		plugins: [vue()],
 		//多页面打包
 		build: {
+			// 浏览器兼容性 ‘esnext’ | 'modules'
+			target: "modules",
+			//输出路径
+			// outDir: "../../../dist",
 			rollupOptions: {
+				// 不结合electron的简单多页配置
+				// input: [
+				// 	"./src/modules/main/index.html",
+				// 	"./src/modules/remind/index.html",
+				// ],
+				output: {
+					dir: "./dist",
+				},
 				input: {
 					main: path.resolve(__dirname, "src/modules/main/index.html"),
-					// remind: path.resolve(__dirname, "src/modules/remind/index.html"),
+					// remind: path.resolve(__dirname, "src/modules/remind/index.html"), //electron打包出错，因配置root问题，目前暂不能配置多页
 				},
+				// input: {
+				// 	main: path.resolve(__dirname, "main.html"),
+				// 	remind: path.resolve(__dirname, "remind.html"),
+				// },
 			},
 		},
 		server: {

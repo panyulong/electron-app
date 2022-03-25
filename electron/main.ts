@@ -22,17 +22,17 @@ function createWindow() {
 	mainWindow = new BrowserWindow({
 		width: 800,
 		height: 600,
-		minWidth: 400,
-		minHeight: 400,
+		// minWidth: 400,
+		// minHeight: 400,
 		icon: iconPath,
-		frame: true, // * app边框(包括关闭,全屏,最小化按钮的导航栏) @false: 隐藏
-		// show: false, // 启动窗口时隐藏,直到渲染进程加载完成「ready-to-show 监听事件」 再显示窗口,防止加载时闪烁
-		resizable: true, // 禁止手动修改窗口尺寸
-		transparent: true, // * app 背景透明
-		hasShadow: false, // * app 边框阴影
+		// frame: true, // * app边框(包括关闭,全屏,最小化按钮的导航栏) @false: 隐藏
+		// // show: false, // 启动窗口时隐藏,直到渲染进程加载完成「ready-to-show 监听事件」 再显示窗口,防止加载时闪烁
+		// resizable: true, // 禁止手动修改窗口尺寸
+		// transparent: true, // * app 背景透明
+		// hasShadow: false, // * app 边框阴影
 		webPreferences: {
 			preload: path.join(__dirname, "preload.ts"),
-			nodeIntegration: true,
+			// nodeIntegration: true,
 		},
 	});
 
@@ -41,10 +41,9 @@ function createWindow() {
 	mainWindow.loadURL(
 		NODE_ENV === "development"
 			? "http://localhost:3000"
-			: // : `file://${path.join(__dirname, "src/modules/main/index.html")}`
-			  `file://${path.join(__dirname, "../dist/index.html")}`
+			: `file://${path.join(__dirname, "../dist/index.html")}`
 	);
-	mainWindow.removeMenu();
+	// mainWindow.removeMenu();
 	// setTray();
 	// 打开开发工具
 	if (NODE_ENV === "development") {
@@ -55,8 +54,8 @@ function createWindow() {
 // 这段程序将会在 Electron 结束初始化
 // 和创建浏览器窗口的时候调用
 // 部分 API 在 ready 事件触发后才能使用。
-// app.whenReady().then(() => {
-app.on("ready", async () => {
+// app.disableHardwareAcceleration();
+app.whenReady().then(() => {
 	createWindow();
 
 	app.on("activate", function () {
@@ -153,7 +152,7 @@ function createRemindWindow(task) {
 	remindWindow.loadURL(
 		NODE_ENV === "development"
 			? "http://localhost:3000"
-			: `file://${path.join(__dirname, "src/modules/remind/index.html")}`
+			: `file://${path.join(__dirname, "../dist/remind.html")}`
 	);
 
 	remindWindow.webContents.on("did-finish-load", () => {

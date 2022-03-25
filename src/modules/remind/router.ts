@@ -1,12 +1,33 @@
-import { createRouter, RouteRecordRaw, createWebHistory } from "vue-router";
-const portal = () => import("@/views/portal/index.vue");
+import {
+	createRouter,
+	RouteRecordRaw,
+	createWebHistory,
+	createWebHashHistory,
+} from "vue-router";
+const Remind = () => import("./Remind.vue");
+const home = () => import("./views/home/index.vue");
 
 const routes: RouteRecordRaw[] = [
 	{
-		path: "/",
-		redirect: "/",
-		name: "首页",
-		component: portal,
+		path: "/remind",
+		name: "Remind",
+		component: Remind,
+		redirect: "/remind/home",
+		meta: {
+			title: "主页",
+			bodyClassName: "body-portal",
+		},
+		children: [
+			{
+				path: "home",
+				name: "Home",
+				component: home,
+				meta: {
+					title: "首页",
+					bodyClassName: "body-portal",
+				},
+			},
+		],
 	},
 	// {
 	// 	path: "/:pathMatch(.*)*",
@@ -16,6 +37,7 @@ const routes: RouteRecordRaw[] = [
 ];
 
 export default createRouter({
-	history: createWebHistory(import.meta.env.VITE_APP_PATH),
+	// history: createWebHistory(import.meta.env.VITE_APP_PATH),
+	history: createWebHashHistory(),
 	routes,
 });

@@ -10,4 +10,4 @@ const app = createApp(Remind);
 // 挂载状态管理
 // setupStore(app);
 
-app.use(router).use(ElementPlus).mount("#app");
+app.use(router).use(ElementPlus).mount("#Remind");
